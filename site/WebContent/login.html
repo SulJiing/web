@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 부트스트랩 CDN -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+.container-fluid {
+  width: 30%;
+  margin-top: 10%;
+}
+.row {
+  border: 4px solid lightgray;
+  padding: 10%;
+}
+.join {
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+	<form method="post">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+				  <input id="userId" class="form-control" name="userId">
+				</div>
+				<div class="col-xs-12">
+				  <input type="password" id="userPw" class="form-control" name="userPw">
+				</div>
+				<div class="col-xs-12">
+				  <input type="submit" class="btn btn-primary col-xs-12"
+				  	id="loginForm" value="로그인(form)">
+				  <input type="button" class="btn btn-success col-xs-12"
+				  	id="loginAjax" value="로그인(ajax)">
+				</div>
+				<div class="col-xs-12 join">
+				  <!-- 하이퍼링크로 회원가입(join)페이지 이동 -->
+				  <a href="./join_link.jsp">회원가입(링크이동) | </a>
+
+				  <!-- 코드값(서블릿을 통해 만듦) 존재 시 회원가입 페이지 끼워넣기 -->
+				  <a href="/site/Join">회원가입</a>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+</body>
+</html>
