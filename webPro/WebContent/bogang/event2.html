@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+/*
+- event 객체 => 이벤트가 발생될 때 전달되는 부가적인 정보가 저장된 객체
+ */
+ 
+function test1() {
+	// 이벤트 객체는 window객체의 event라는 속성에 저장되어 있다.
+	alert(event.type); // event.type => 이벤트명
+}
+// 이벤트가 발생했을 때 처리할 이벤트핸들러를 호출할 때
+// event객체를 인수값으로 넣어서 호출한 후 사용할 수 있다.
+function test2(e) {
+	alert(event.which); // 마우스의 버튼값을 반환한다.(왼-1,휠-2,오-3)
+}
+window.onload = function() {
+	// 이벤트를 처리하는 익명함수의 매개변수를 지정하면 이 변수에는 자동으로 event객체가 저장된다.
+	document.getElementById("btn1").onclick = function (e) {
+		alert(e.type);
+	}
+	document.querySelector("#btn2").addEventListener("click",function(e){
+		alert(e.type);
+	});
+	document.getElementById("inData").addEventListener("keydown",function(e){
+		console.log("e.keyCode",e.keyCode); // 누른키의 코드값
+		console.log("e.which",e.which); 	// 누른키의 코드값
+		console.log("e.key",e.key) 			// 누른키의 문자
+		// 해당 키가 눌린 상태이면 true, 아니면 false
+		console.log("e.altKey",e.altKey) 	// Alt키
+		console.log("e.shiftKey",e.shiftKey)// Shift키 
+		console.log("e.ctrlKey",e.ctrlKey) 	// Ctrl키
+	});
+	document.onmousedown = function(e){
+		if(e.which==3){
+			alert("오른쪽 버튼 사용 금지!!");
+		}
+	}
+}
+</script>
+</head>
+<body>
+<form>
+	<input type="button" value="클릭하세요1" onclick="test1()">
+	<input type="button" value="클릭하세요2" onmousedown="test2(event)">
+	<input type="button" value="클릭하세요3" id="btn1">
+	<input type="button" value="클릭하세요4" id="btn2">
+	<hr color="blue">
+	<input type="text" id="inData">
+</form>
+</body>
+</html>

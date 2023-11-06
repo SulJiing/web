@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+/*
+ - 이벤트란?
+	사용자가 마우스를 클릭하거나 키보드를 누르는 등과 같은
+	사용자 행동의 발생을 프로그램에게 알리는 신호를 말한다.
+	
+- 이벤트핸들러?
+	이벤트가 발생하면 이에 상응하는 작용을 하기위해 작성된 프로그램을 말한다.
+	(보통 이벤트 핸들러는 함수를 이용해서 구현한다.)
+ 	
+- 이벤트 설정?
+	이벤트와 이벤트핸들러를 연결하는 작업
+	
+	형식1) 태그에 직접 지정하는 방법(인라인 방식) => 요즘은 test용으로 많이 사용
+		<태그명... on이벤트명 = "이벤트핸들러">내용</태그명>
+	
+	형식2) 자바스크립트 영역에 지정하는 방법
+		(1) 객체.on이벤트명 = function(이벤트객체변수) {
+			처리할 내용들;...
+		}
+	
+	형식3) 객체.addEventListener("이벤트명",이벤트핸들러);
+		
+- 이벤트 종류
+	1) click
+	2) dblclick
+	3) mousedown
+	4) mouseup
+	5) mouseover
+	6) mouseout
+	7) mousemove
+	8) focus	=> 해당 객체에 포커스가 놓이는 순간 발생하는 이벤트
+	9) blur		=> 해당 객체에 있던 포커스를 잃어버리는 순간 발생하는 이벤트
+	10) change	=> 값이 바뀔 때 발생하는 이벤트
+	11) submit	=> <form>태그에서 구성한 자료를 서버로 전송하기 전에 발생하는 이벤트
+	12) reset	=> <form>태그에서 reset명령이 전달되고 실제 작업이 진행도기 전에 발생되는 이벤트(처음 상태로 만듦)
+	13) load	=> 문서나 이미지등이 모두 로딩된 후에 발생하는 이벤트(한번 다 읽고선 실행)
+	14) unload	=> 문서가 닫히거나 해당 객체가 사라지는 순간에 발생하는 이벤트
+	15) keydown
+	16) keyup
+	17) keypress
+	18) DOMContentLoaded => 문서에서 DOM객체를 생성한 후에 발생하는 이벤트
+ */
+function insa() {
+	alert("안녕하세요 load이벤트입니다.");
+}
+window.onload = function() {
+	alert("이것은 스크립트영역에서 설정한 이벤트입니다.");
+	let myBtn1 = document.getElementById("testBtn1");
+	myBtn1.onclick = function() {
+		alert('이벤트 연습 3 버튼 클릭');
+	}
+}
+// let myBtn1 = document.getElementById("testBtn1"); // 자바스크립트는 인터프리터 언어이기 때문에 버튼자체를 찾지 못함
+// myBtn1.onclick = function() {					 // 해결방법은 body태그 밑에 스크립트를 만들어 다시 만들어주던가
+// 	alert('이벤트 연습 3 버튼 클릭');					  	 // 또는 load이벤트 안에 같이 넣어주어야 함
+// }												 // 마지막으로는 DOMContentLoaded 사용
+document.addEventListener("DOMContentLoaded",function(){
+let myBtn1 = document.getElementById("testBtn1");
+	myBtn1.onclick = function() {
+		alert('이벤트 연습 3 버튼 클릭');
+	}
+	let myBtn2 = document.querySelector('#testBtn2');
+	myBtn2.addEventListener("click",function(){
+		alert('반갑습니다.');
+	});
+});
+
+</script>	
+</head>
+<!-- <body onload="insa()"> 여기는 자바스크립트 영역-->
+<!-- <body onload="insa()"> -->
+<body>
+<form action="">
+	<input type="button" value="이벤트 연습1" onclick="alert('1번 버튼 클릭')">
+	<input type="button" value="이벤트 연습2" onclick="insa()">
+	<input type="button" value="이벤트 연습3" id="testBtn1">
+	<input type="button" value="이벤트 연습4" id="testBtn2">
+	
+</form>
+
+</body>
+</html>

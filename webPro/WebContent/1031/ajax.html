@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="text" value="아아">
+	<input type="button" value="get">
+	<input type="button" value="post">
+	<div id="disp"></div>
+
+	<script>
+		let v_val = document.querySelector('input'); // text필드
+		let v_btns = document.querySelectorAll('input'); // 버튼 2개
+		let v_disp = document.querySelector('#disp'); // 출력영역 div
+
+		// post버튼 이벤트 부여하기
+		v_btns[2].addEventListener('click', function() {
+			let ajax = new XMLHttpRequest();
+			ajax.open('post', '/webPro/Ajax', true);
+			ajax.onreadystatechange = function() {
+				if (ajax.readyState == 4 && ajax.status == 200) {
+					// 화면에 응답결과 출력하기
+// 					v_disp.innerHTML = "<p>"+ajax.responseText+"</p>";
+					v_disp.innerHTML = `<p style='background-color: gold;'>${ajax.responseText}</p>`;
+					
+					// 응답받을 수 있는 상태
+					console.log(ajax.responseText);
+				}
+			};
+
+			/*
+			post 방식으로 데이터 전송 전 필수로 설정해야 하는 헤더 정보 존재!!
+			
+			GET방식은 url을 통해 key=value의 형식으로 데이터가 전송되기 때문에 content-type설정이 필요없으나,
+			POST방식은 데이터가 패킷으로 전달되므로 전달받는 위치(서버측)에서 데이터의 형식이 무엇인지 확인할 수 있는 설정이 꼭 필요함
+			
+			application/x-www-form-urlencoded(form 데이터 전송 방식의 기본값)
+			- key=value& ... 형식으로 여러 데이터를 한번에 전송가능
+			- URL인코딩[URL상에서 문자를 표현하기 위한 변환 처리]후 데이터 전송
+			 */
+			
+			// form-urlencoded형식(key=value)으로 데이터 전송
+// 			ajax.setRequestHeader('content-type','application/x-www-form-urlencoded;charset=utf-8;');
+			// 	  let data = "uNm=" + v_val.value
+			// 	  ajax.send(data);
+// 			ajax.send("uNm=" + v_val.value);
+			
+			// JSON형식 데이터 전송
+			ajax.setRequestHeader('content-type','application/json;charset=utf-8;');
+			let data = {postData:v_val.value}; // 변수에 객체 데이터 담음
+			ajax.send(JSON.stringify(data)); // JSON(문자열)형태로 변환후 전송
+			
+		});
+		/*    
+		 // get버튼 클릭이벤트 부여하기 (JSP방식)
+		 v_btns[1].addEventListener('click', function(){
+		 //1. new XMLHttpRequest
+		 //2. open(method, url, async)
+		 //4. onreadystatechange - readyState - status - responseText
+		 //3. send()
+		
+		 let req = new XMLHttpRequest();
+		 req.open('get', 'testGet.jsp?name=' + v_val.value);
+		 req.onreadystatechange = function(){
+		 if(req.readyState == 4 && req.status == 200){
+		 //console.log(req.responseText);
+		 let nm = JSON.parse(req.responseText).nm;
+		 v_disp.innerHTML = "<h1 style = 'color:blue;'>" + nm +"</h1>";
+		 }
+		 }
+		 req.send();
+		 }); 
+		 */
+
+		// get버튼 클릭이벤트 부여하기 (Servlet방식)
+		v_btns[1].addEventListener('click', function() {
+			let req = new XMLHttpRequest();
+			// 프로젝트에 contextroot가 설정되어 있을 경우,
+			// contextroot/servlet patter으로 경로를 설정한다.
+			req.open('get', '/webPro/Ajax?nameKey=' + v_val.value);
+			req.onreadystatechange = function() {
+				if (req.readyState == 4 && req.status == 200) {
+					console.log(req.responseText);
+					// 응답결과가 JSON일 때 => 객체로 변환 후 key로 접근하여 결과 표현하기
+					let jsonObj = JSON.parse(req.responseText);
+					v_disp.innerHTML = "<h1 style = 'color:pink;'>"+ jsonObj.abcd + "</h1>";
+
+					// 응답결과가 text일 때
+					// v_disp.innerHTML = "<h1 style = 'color:blue;'>" + req.responseText +"</h1>";
+				}
+			}
+			req.send();
+		});
+	</script>
+</body>
+</html>

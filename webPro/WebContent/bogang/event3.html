@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div {
+	width: 300px; height: 200px; 
+	background-color: yellow; padding: 20px;
+}
+span {
+	padding: 50px; background-color: pink;
+}
+</style>
+<script type="text/javascript">
+
+// 이벤트가 발생하면 발생한 이벤트는 현재 엘리먼트의 상위 엘리먼트로 자동으로 전달된다.
+// 이러한 현상을 버블링이라 한다.
+window.onload = function(){
+	document.getElementById("mydiv").onclick = function(e) {
+		alert("DIV 영역 클릭"+e.target.tagName+", "+e.currentTarget.tagName);
+	}
+	document.getElementById("myspan").onclick = function(e) {
+// 		e.stopPropagation();	// 버블링을 멈추는 메서드
+		alert("SPAN 영역 클릭"+e.target.tagName+", "+e.currentTarget.tagName);
+	}
+	document.getElementById("btn").onclick = function(e) {
+// 		e.stopPropagation();	// 버블링을 멈추는 메서드
+		alert("BUTTON 영역 클릭"+e.target.tagName+", "+e.currentTarget.tagName);
+	}
+	document.getElementById("myanchor").onclick = function(e) {
+		// href 속성값을 출력해보자
+		e.preventDefault(); // 어떤 이벤트에 대한 기본동작을 멈추게 한다
+			// ex) <a>태그를 클릭하면 href속성에 설정된 URL로 이동하는 기능이 있다.
+		// e.target => 이벤트가 처음 발생한 객체를 저장한다.
+		// e.currentTarget => 현재 처리되는 이벤트핸들러가 설정된 객체를 저장한다.
+		alert("이동할 URL 주소 => "+ e.target.getAttribute("href"));
+	}
+}
+</script>
+</head>
+<body>
+<div id="mydiv">
+	<span id="myspan"><input type="button" value="클릭하세요" id="btn"></span>
+</div>
+<br> <br>
+<a href="https://www.daum.net" id="myanchor">Daum사이트 가기</a>
+</body>
+</html>

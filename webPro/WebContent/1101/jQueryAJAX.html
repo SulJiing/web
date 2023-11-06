@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$.ajax({
+		url: '../0922/sample/sample.text',
+		type: 'get', // 속성명 method로 사용해도 됨
+// 		data: , // 요청데이터 없으면 생략가능
+		success: function(data){
+			console.log("응답데이터 => ",data);
+		},
+		error: function(xhr){
+			alert("상태: "+xhr.status+xhr.statusText);
+		},
+// 		dataType: 'json' // 생략시 응답데이터 타입에 맞게 형변환됨
+	});
+	
+	/* jQuery 단축메뉴 - 속성에 대한 값만 대입해서 결과를 빠르게 얻을 수 있음
+		하지만 error상태를 확인할 수 없기 때문에 익숙해지면 사용할 것을 권장
+		
+		$.get(url,data,success,dataType);
+		$.post(url,data,success,dataType);
+		$.getJSON(url,data,success);
+	*/
+	$.post('../0922/sample/sample.text',
+			function(data){console.log("단축으로 결과 빠르게 얻음 => ",data)});
+	
+</script>

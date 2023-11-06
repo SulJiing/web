@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="button" value="뉴스 가져오기">
+	<div></div>
+	
+<script>
+	document.querySelector('input').addEventListener('click',function(){
+		
+		let req = new XMLHttpRequest();
+		req.open('get','https://news.google.com/rss/search?hl=ko&gl=KR&ceid=KR%3Ako&oc=11&q=%EA%B3%A0%EC%96%91%EC%9D%B4');
+		req.onreadystatechange = function(){
+			if(req.readyState == 4 && req.status == 200){
+				console.log("정보 => ", req.responseText);
+			}
+		}
+		req.send();
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input id="userId">
+	<input type="password" id="userPw">
+	<button>로그인</button> <br> <br>
+	
+	<div id="d1"></div>
+	<div id="d2"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$('button').on('click',function(){
+		let uId = $('#userId').val();
+		let uPw = $('#userPw').val();
+		
+/*
+	load() - 서버와 통신하여 데이터를 가져오는 메서드
+			 ajax()보다 간소화된 비동기 호출 메서드
+			 서버로부터 응답받은 데이터를 선택한 html요소의 콘텐츠로 대체한다.
+			 
+	$(selector).load(url, data, callback - load()완료 후 수행할 함수); 
+	
+	* 제이쿼리 ajax에서는 data를 객체형태로 전달해도 form-urlencoeded(key=value)형식으로 자동 변환하여 전달함
+*/
+// 	let data1 = "userId="+uId+"&userPw="+uPw;
+	let data2 = {userId : uId, userPw : uPw};
+	$('#d1').load('./loadTest.jsp',data2, cb);
+});
+	
+	// a-response, b-status, c-xhr
+	function cb(a,b,c) {
+		console.log(a,b,c);
+		let jsonObj = JSON.parse(a);
+		$('#d2').html("<p style='color: red;'>로그인 "+ jsonObj.rst +"</p>");
+		console.log(b,c.statusText);
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="button" value="서버를 통한 우회">
+	<div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js" integrity="sha512-HX+/SvM7094YZEKOCtG9EyjRYvK8dKlFhdYAnVCGNxMkA59BZNSZTZrqdDlLXp0O6/NjDb1uKnmutUeuzHb3iQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	let v_btn = document.querySelector('input');
+	v_btn.addEventListener('click',function(){
+		
+		let req = new XMLHttpRequest();
+		req.open('get','/webPro/Fluent');
+		req.onreadystatechange = function() {
+			if(req.readyState == 4 && req.status == 200) {
+				// 응답확인
+// 				console.log("요청 서버를 통해 응답받음 => ",req.responseText); // 문자열
+// 				console.log("요청 서버를 통해 응답받음 => ",req.responseXML); // xml
+				
+				// 컨버팅 객체 생성
+				let x2js = new X2JS();
+				let jsonObj = x2js.xml_str2json(req.responseText);
+// 				let jsonObj = x2js.xml2json(req.responseXML);
+				console.log("변환된 데이터 => ",jsonObj);
+				
+				console.log("기사의 제목부분 => ",jsonObj.rss.channel.item[2].title);
+				
+				let arrInfo = jsonObj.rss.channel.item;
+				// 테이블 형태로 기사의 제목과 제목에 링크를 접목시켜 봅시다.
+				let v_tbl = "<table border=1>";
+				for(let i =0; i<arrInfo.length; i++){
+				v_tbl += "<tr><td><a href='"+arrInfo[i].link+"'>"+arrInfo[i].title+"</td></tr>";
+				}
+				v_tbl += "</table>"
+				document.querySelector('div').innerHTML = v_tbl;
+			}
+		}
+		req.send();
+	});
+</script>
+</body>
+</html>

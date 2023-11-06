@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type = "text/css">
+[type="imeage"]
+</style>
+</head>
+<body>
+<!-- 
+	<form>
+	서버로 값을 전송할 때 사용하는 태그
+	name 속성으로 값을 전달한다(AJAX사용시에는 제외)
+	한 페이지 내에서 여러번 작성해도 되지만, 태그 안에 태그는(form안에 form) 넣지 않도록 주의
+	서버로 전달되는 정보가 url뒤에 QueryString 형태로 붙는다( url?key=value1&key2=value2&...)
+	method는 전송방법을 저의하며 form에서는 2가지 방식(GET/POST)을 사용
+	GET
+		- 요청 길이에 제한이 있고 브라우저마다 다름
+		- 정보가 노출되는 형태이므로 보안을 위해 중요정보는 다루지 않음
+		- 캐시가능, 브라우저 히스토리에 남아 북마크될 수 있다.
+	POST
+		- 길이 제한이 없고 용량이 큰 데이터를 보낼 때 사용
+		- 주소 표시줄에 값이 표시되지 않아 데이터가 외부적으로 드러나지 않으므로 보안성이 get보다 나음
+		- 데이터는 HTTP 메시지의 body부분에 담아 서버로 보냄 >> 완벽히 숨겨지진 않으므로 보안상 완벽하지는 않음
+	
+	action의 default 값은 페이지 자신이며 실체 action은 보통 서버사이드 프로그래밍 페이지로 지정한다.
+ -->
+ 
+ 	<form action="test.jsp" method="post">
+ 		<input type = "text" name="userNm" value = "백영웅">
+ 	<input type = "password" name="userPw">
+ 		<br><br>
+ 	
+ 	<input type = "checkbox" name = "chk" value="HTML" checked = "checked">HTML
+ 	<input type = "checkbox" name = "chk" value="CSS">CSS
+ 	<input type = "checkbox" name = "chk" value="JAVASCRIPT">JAVASCRIPT
+ 	
+ 	<br><br>
+ 	
+    <!-- 지정된 action 위치로 정보를 전송하는 역할을 하는 버튼 -->
+    <input type = "submit">
+    
+    <!-- 순수한 버튼 -> 기능부여를 위한 이벤트를 설정 -->
+	<input type = "button" value = "버튼이름" 
+	onclick="f_submit()">
+	
+    <!-- 폼안에 배치되는 button요소는 전송기능을 가짐 -->
+ 	<button>폼 안의 Btn</button>
+ 	
+ 	<!-- input 요소든 button 요소든 type=button일때는 순수한 버튼 -->
+ 	<button type = "button">폼 안의 Btn2</button>
+ 	
+    <!-- 이미지로 형태의 나타내는 전송기능을 가진 버튼  -->
+ 	<input type = "image" src = "../imeages/button2.png" width="50px" height="30px">
+ 	
+ 	</form>
+    <!-- input 요소든 button 요소든 type=button일때는 순수한 버튼 -->
+ 	<button>폼 바깥의 Btn1</button>
+ 
+ <script>
+ function f_submit(){
+// 	 alert("뿌지직!!!!!");
+//	 form 대상으로 submit 처리하기
+	document.querySelector("form").submit();
+ }
+ </script>
+</body>
+</html>
