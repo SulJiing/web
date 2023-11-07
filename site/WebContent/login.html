@@ -23,7 +23,7 @@
 </head>
 <body>
 
-	<form method="post">
+	<form method="post" action="/site/Login">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
@@ -48,6 +48,25 @@
 			</div>
 		</div>
 	</form>
-	
+<script type="text/javascript">
+ $('#loginAjax').on('click',function(){
+	$.ajax({
+// 		type:'get', // jQuery방식 ajax에서 get은 생략가능 / js방식은 get도 필수로 넣어주어야 함
+		url:'./loadTest.jsp',
+		data: {userId: $('#userId').val(), userPw:$('#userPw').val()}, // 객체로 보내도 urlendcoded형식으로 읽힘
+		success:function(data){
+			console.log(data.rst);
+			if(data.rst =="ok"){
+// 				location.href="./WEB-INF/private.html"; // 보안폴더는 직접 접근 불가
+				location.href="/site/Login";
+			}
+		},
+		error:function(xhr){
+			alert(xhr.status);
+		},
+		dataType:'json'
+	}); 
+ });
+</script>
 </body>
 </html>

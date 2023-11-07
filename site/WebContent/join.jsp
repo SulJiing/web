@@ -214,6 +214,11 @@ function valid(e) {
 				if(confirm("로그인 페이지로 이동하시겠습니까?")) {
 					location.href="login.html";
 				}
+				// 가입완료 후
+				// 작성된 항목값을 초기화 하거나
+// 				$('form *').val("");
+				// 가입하기 버튼 비활성화 처리하여 ORA-00001발생 예방
+				$('#joinBtn').attr('disabled',true);
 			} else{
 				$('#joinspan').text("가입실패").css('color','red');
 			}
