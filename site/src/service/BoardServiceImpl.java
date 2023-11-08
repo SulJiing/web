@@ -6,7 +6,7 @@ import java.util.Map;
 
 import dao.BoardDaoImpl;
 import dao.IBoardDao;
-import vo.BoradVO;
+import vo.BoardVO;
 
 public class BoardServiceImpl implements IBoardService {
 
@@ -33,8 +33,8 @@ public class BoardServiceImpl implements IBoardService {
 		return countList;
 	}
 	@Override
-	public List<BoradVO> boardList(Map<String, Object> map) {
-		List<BoradVO> list = null;
+	public List<BoardVO> boardList(Map<String, Object> map) {
+		List<BoardVO> list = null;
 		try {
 			list = dao.boardList(map);
 		} catch (SQLException e) {

@@ -1,6 +1,6 @@
 package vo;
 
-public class BoradVO {
+public class BoardVO {
 	private int num;
 	private String subject;
 	private String writer;

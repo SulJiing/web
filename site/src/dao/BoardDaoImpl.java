@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import common.MyBatisDao;
-import vo.BoradVO;
+import vo.BoardVO;
 
 public class BoardDaoImpl extends MyBatisDao implements IBoardDao {
 
@@ -25,7 +25,7 @@ public class BoardDaoImpl extends MyBatisDao implements IBoardDao {
 		return selectOne("brd.countList");
 	}
 	@Override
-	public List<BoradVO> boardList(Map<String, Object> map) {
+	public List<BoardVO> boardList(Map<String, Object> map) {
 		return selectList("brd.boardList",map);
 	}
 }

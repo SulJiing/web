@@ -7,7 +7,7 @@
 	<properties resource="config/db.properties" />
 	
 	<typeAliases>
-		<typeAlias type="vo.BoradVO" alias="brdVO"/>
+		<typeAlias type="vo.BoardVO" alias="brdVO"/>
 	</typeAliases>
 	
 	<environments default="dev">

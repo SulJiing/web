@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.BoardServiceImpl;
 import service.IBoardService;
-import vo.BoradVO;
+import vo.BoardVO;
 
 @WebServlet("/Main")
 public class Main extends HttpServlet {
@@ -24,7 +24,9 @@ public class Main extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int currentPage = 1; // 현재(기본 시작) 페이지
+		currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
 		
 		// 전체 글 갯수 정보 가져오기
 		// 서비스 객체
@@ -38,7 +40,7 @@ public class Main extends HttpServlet {
 		int perList = 5;
 		
 		// 전체 페이지 수 => 전체 글갯수(countList/페이지당 글갯수(perList)
-		int totalPage = (int)Math.ceil((double)(countList)/(double)perList);
+		int totalPage = (int)Math.ceil((double)countList/(double)perList);
 		System.out.println("전체 페이지 수 => "+totalPage);
 		
 		// 페이지 당 출력할 게시글 범위(start~end)
@@ -51,28 +53,31 @@ public class Main extends HttpServlet {
 		// 1페이지일 때 : 1+5-1 = 1 | 2페이지일 때 : 6+5-1 = 10
 		// 3페이지일 때 : 11+5-1 = 15 | 4페이지일 때 : 16+5-1 = 20
 		int end = start+perList-1;
+		if(end > countList) end = countList;
 		
 		// 화면에 표시될 페이지 범위(startPage~endPage)
 		// startPage = ((currentPage - 1) / perPage * perPage) + 1;
 		int startPage = ((currentPage - 1) / perPage * perPage) + 1;
 //		int startPage = 0;
-		for(int i=1; i<10; i++) {
+		/*for(int i=1; i<10; i++) {
 			startPage = ((i - 1) / perPage * perPage) + 1;
 			System.out.println(i+"페이지일 때 시작범위 => "+startPage);
-		}
+		}*/
 		// endPage = startPage + perPage -1;
 		int endPage = startPage + perPage -1;
+		if(endPage > totalPage) endPage = totalPage; //초과하는 값 조절
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
 		// start~end 범위 게시물 조회하기
-		List<BoradVO> list = service.boardList(map);
+		List<BoardVO> list = service.boardList(map);
 		
 		request.setAttribute("list", list); // 게시글 목록 정보
 		request.setAttribute("sPage", startPage);
 		request.setAttribute("ePage", endPage);
 		request.setAttribute("ttPage", totalPage);
+		request.setAttribute("cPage", currentPage);
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}

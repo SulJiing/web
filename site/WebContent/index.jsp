@@ -39,5 +39,5 @@
 %>
     
 <%@include file="./include/aside2.jsp" %>
-    
+
 <%@include file="./include/footer.jsp"%>
